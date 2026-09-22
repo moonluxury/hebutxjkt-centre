@@ -32,10 +32,10 @@ def main():
     if any(output.is_relative_to(root / name) for name in ["assets", "js", "styles"]):
         raise SystemExit("Output must be outside the website's source directories")
 
-    entries = ["index.html", "assets", "js", "styles"]
+    entries = ["index.html", "favicon.ico", "assets", "js", "styles"]
     for name in entries:
         path = root / name
-        valid = path.is_file() if name == "index.html" else path.is_dir()
+        valid = path.is_file() if name in {"index.html", "favicon.ico"} else path.is_dir()
         if not valid:
             raise SystemExit(f"Missing website file or directory: {name}")
 
