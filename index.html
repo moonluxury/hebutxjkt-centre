@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Portfolio — Creative Frontend & 3D Engineer</title>
+  <meta name="description"
+    content="Interactive 3D developer portfolio showcasing projects, skills, and engineering depth. Built with Three.js and modern web technologies." />
+  <meta property="og:title" content="Developer Portfolio — 3D Interactive Experience" />
+  <meta property="og:description" content="Explore projects, skills, and more through an immersive 3D web portfolio." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles/index.css" />
+  <link rel="stylesheet" href="styles/overlay.css" />
+  <link rel="stylesheet" href="styles/ui.css" />
+</head>
+
+<body>
+  <!-- Loading Screen -->
+  <div id="loader">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <p class="loader-text">Subrato Welcomes You...</p>
+    </div>
+  </div>
+
+  <!-- 3D Canvas Container -->
+  <canvas id="three-canvas"></canvas>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo" lang="zh-CN"><span class="nav-logo-accent">研究中心</span>主页</a>
+    <div class="nav-links">
+      <button class="nav-link active" data-section="0">Home</button>
+      <button class="nav-link" data-section="1">History</button>
+      <button class="nav-link" data-section="2">Team</button>
+      <button class="nav-link" data-section="3">Projects</button>
+      <button class="nav-link" data-section="4">Contact</button>
+    </div>
+    <button id="reduced-motion-toggle" title="Toggle reduced motion" aria-label="Toggle reduced motion">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M8 12h8" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Section Indicators (right side dots) -->
+  <div id="section-indicators">
+    <button class="indicator active" data-section="0" title="Home"></button>
+    <button class="indicator" data-section="1" title="History"></button>
+    <button class="indicator" data-section="2" title="Team"></button>
+    <button class="indicator" data-section="3" title="Projects"></button>
+    <button class="indicator" data-section="4" title="Contact"></button>
+  </div>
+
+  <!-- HTML Overlays -->
+  <div id="overlay-container">
+    <!-- Hero Overlay -->
+    <section id="hero-overlay" class="overlay-section active" lang="zh-CN">
+      <div class="hero-content">
+        <p class="hero-greeting">你好，我们是</p>
+        <h1 class="hero-name"><span class="hero-name-line">HEBUT先进空天</span><span class="hero-name-line">国家重点<span class="hero-name-accent">研究中心</span></span></h1>
+        <p class="hero-tagline">共赴星辰，能创未来</p>
+        <div class="hero-cta">
+          <a href="#" class="btn btn-primary" data-section="3">View Projects</a>
+          <a href="#" class="btn btn-outline" data-section="4">Get in Touch</a>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span>Scroll to explore</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- About Overlay -->
+    <section id="about-overlay" class="overlay-section">
+      <div class="section-label">History</div>
+      <div class="about-card glass-card">
+        <h2>团队沿革</h2>
+        <p>
+          团队成员主要来自于河北工业大学余热回收及热泵相关技术课题组，各成员具备创新思维与工程素养，共斩获国家级奖项8项，省级奖项20项，2026年团队继续从事数值仿真、软件开发及游戏开发相关工作。
+          正式更名“HEBUT先进空天国家重点研究中心”，向创新深空进发。
+        </p>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">25+</span>
+            <span class="stat-label">Competition Awards</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">5+</span>
+            <span class="stat-label">Projects Built</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">3+</span>
+            <span class="stat-label">Years Established</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Overlay -->
+    <section id="skills-overlay" class="overlay-section team-section" lang="zh-CN">
+      <div class="section-label" id="team-heading" lang="en">Team</div>
+      <div class="team-grid" id="team-grid" role="region" aria-labelledby="team-heading" tabindex="0">
+        <article class="team-card glass-card" aria-labelledby="team-member-1">
+          <a class="team-photo-link" href="assets/team/member-01.jpg" target="_blank" rel="noopener" aria-label="查看王禹浩原图" title="查看原图">
+            <img class="team-photo" src="assets/team/member-01.jpg" alt="王禹浩的照片" width="1923" height="2565" />
+          </a>
+          <h2 class="team-name" id="team-member-1">王禹浩</h2>
+          <button class="team-email" type="button" data-email="732414720@qq.com" aria-label="复制王禹浩的邮箱" title="点击复制邮箱">732414720@qq.com</button>
+          <p class="team-bio">HEBUT先进空天国家重点研究中心负责人</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-2">
+          <a class="team-photo-link" href="assets/team/member-03.png" target="_blank" rel="noopener" aria-label="查看王嗣铖原图" title="查看原图">
+            <img class="team-photo" src="assets/team/member-03.png" alt="王嗣铖的照片" width="976" height="1366" />
+          </a>
+          <h2 class="team-name" id="team-member-2">王嗣铖</h2>
+          <button class="team-email" type="button" data-email="41933488@qq.com" aria-label="复制王嗣铖的邮箱" title="点击复制邮箱">41933488@qq.com</button>
+          <p class="team-bio">HEBUT先进空天国家重点研究中心软件工程师</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-3">
+          <a class="team-photo-link" href="assets/team/qin-boyuan.jpg" target="_blank" rel="noopener" aria-label="查看秦博远原图" title="查看原图">
+            <img class="team-photo" src="assets/team/qin-boyuan.jpg" alt="秦博远的照片" width="531" height="708" />
+          </a>
+          <h2 class="team-name" id="team-member-3">秦博远</h2>
+          <button class="team-email" type="button" data-email="1153520551@qq.com" aria-label="复制秦博远的邮箱" title="点击复制邮箱">1153520551@qq.com</button>
+          <p class="team-bio">HEBUT先进空天国家重点研究中心策划</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-4">
+          <a class="team-photo-link" href="assets/team/member-02.png" target="_blank" rel="noopener" aria-label="查看刘家和原图" title="查看原图">
+            <img class="team-photo team-photo--member-2" src="assets/team/member-02.png" alt="刘家和的照片" width="492" height="689" />
+          </a>
+          <h2 class="team-name" id="team-member-4">刘家和</h2>
+          <button class="team-email" type="button" data-email="1070836849@qq.com" aria-label="复制刘家和的邮箱" title="点击复制邮箱">1070836849@qq.com</button>
+          <p class="team-bio">HEBUT先进空天国家重点研究中心<br>能源与环境工程学院负责人</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-5">
+          <a class="team-photo-link" href="assets/team/wang-shuaixuan.jpg" target="_blank" rel="noopener" aria-label="查看王帅萱原图" title="查看原图">
+            <img class="team-photo" src="assets/team/wang-shuaixuan.jpg" alt="王帅萱的照片" width="921" height="1290" />
+          </a>
+          <h2 class="team-name" id="team-member-5">王帅萱</h2>
+          <button class="team-email" type="button" data-email="wangshuaixuan2004@163.com" aria-label="复制王帅萱的邮箱" title="点击复制邮箱">wangshuaixuan2004@163.com</button>
+          <p class="team-bio">HEBUT先进空天国家重点研究中心<br>电气工程学院负责人</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-6">
+          <img class="team-photo" src="assets/team/member-04.png" alt="成员 06 临时照片" width="720" height="1008" />
+          <h2 class="team-name" id="team-member-6">成员姓名 06</h2>
+          <span class="team-email">邮箱待补充</span>
+          <p class="team-bio">成员简介待补充</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-7">
+          <img class="team-photo" src="assets/team/member-04.png" alt="成员 07 临时照片" width="720" height="1008" />
+          <h2 class="team-name" id="team-member-7">成员姓名 07</h2>
+          <span class="team-email">邮箱待补充</span>
+          <p class="team-bio">成员简介待补充</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-8">
+          <img class="team-photo" src="assets/team/member-04.png" alt="成员 08 临时照片" width="720" height="1008" />
+          <h2 class="team-name" id="team-member-8">成员姓名 08</h2>
+          <span class="team-email">邮箱待补充</span>
+          <p class="team-bio">成员简介待补充</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-9">
+          <img class="team-photo" src="assets/team/member-04.png" alt="成员 09 临时照片" width="720" height="1008" />
+          <h2 class="team-name" id="team-member-9">成员姓名 09</h2>
+          <span class="team-email">邮箱待补充</span>
+          <p class="team-bio">成员简介待补充</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-10">
+          <img class="team-photo" src="assets/team/member-04.png" alt="成员 10 临时照片" width="720" height="1008" />
+          <h2 class="team-name" id="team-member-10">成员姓名 10</h2>
+          <span class="team-email">邮箱待补充</span>
+          <p class="team-bio">成员简介待补充</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-11">
+          <img class="team-photo" src="assets/team/member-04.png" alt="成员 11 临时照片" width="720" height="1008" />
+          <h2 class="team-name" id="team-member-11">成员姓名 11</h2>
+          <span class="team-email">邮箱待补充</span>
+          <p class="team-bio">成员简介待补充</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-12">
+          <img class="team-photo" src="assets/team/member-04.png" alt="成员 12 临时照片" width="720" height="1008" />
+          <h2 class="team-name" id="team-member-12">成员姓名 12</h2>
+          <span class="team-email">邮箱待补充</span>
+          <p class="team-bio">成员简介待补充</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-13">
+          <img class="team-photo" src="assets/team/member-04.png" alt="成员 13 临时照片" width="720" height="1008" />
+          <h2 class="team-name" id="team-member-13">成员姓名 13</h2>
+          <span class="team-email">邮箱待补充</span>
+          <p class="team-bio">成员简介待补充</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-14">
+          <img class="team-photo" src="assets/team/member-04.png" alt="成员 14 临时照片" width="720" height="1008" />
+          <h2 class="team-name" id="team-member-14">成员姓名 14</h2>
+          <span class="team-email">邮箱待补充</span>
+          <p class="team-bio">成员简介待补充</p>
+        </article>
+        <article class="team-card glass-card" aria-labelledby="team-member-15">
+          <img class="team-photo" src="assets/team/member-04.png" alt="成员 15 临时照片" width="720" height="1008" />
+          <h2 class="team-name" id="team-member-15">成员姓名 15</h2>
+          <span class="team-email">邮箱待补充</span>
+          <p class="team-bio">成员简介待补充</p>
+        </article>
+      </div>
+      <p class="team-copy-status" id="team-copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
+    </section>
+
+    <!-- Projects Overlay -->
+    <section id="projects-overlay" class="overlay-section">
+      <div class="section-label">Projects</div>
+      <div class="projects-grid" id="projects-grid"></div>
+    </section>
+
+    <!-- Contact Overlay -->
+    <section id="contact-overlay" class="overlay-section">
+      <div class="section-label">Contact</div>
+      <div class="skills-container">
+        <article class="skill-category glass-card" data-contact="contact" aria-labelledby="contact-us-title">
+          <h3 id="contact-us-title"><span class="category-icon" aria-hidden="true">📞</span><button type="button" class="contact-card-open" aria-haspopup="dialog"
+              aria-label="查看联系我们详情">联系我们</button></h3>
+          <div class="contact-summary">
+            <p>加入我们-qq：732414720</p>
+            <p>团队邮箱：<a href="mailto:hebutxjkt@163.com">hebutxjkt@163.com</a></p>
+            <p>团队主页：<a href="http://81.70.80.234/" target="_blank" rel="noopener">http://81.70.80.234/</a></p>
+          </div>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+        </article>
+        <article class="skill-category glass-card" data-contact="submissions" aria-labelledby="contact-submissions-title">
+          <h3 id="contact-submissions-title"><span class="category-icon" aria-hidden="true">📕</span><button type="button"
+              class="contact-card-open" aria-haspopup="dialog" aria-label="查看河工开物征稿公告">河工开物-征稿公告</button></h3>
+          <div class="contact-summary">
+            <p>将你的学习经验与青春感悟分享，共建工大先锋平台。</p>
+          </div>
+          <div class="skill-tags contact-tags" role="group" aria-label="征稿类型">
+            <button type="button" class="skill-tag" aria-haspopup="dialog">期末重点</button>
+            <button type="button" class="skill-tag" aria-haspopup="dialog">校园故事</button>
+            <button type="button" class="skill-tag" aria-haspopup="dialog">优秀文章</button>
+          </div>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+        </article>
+        <article class="skill-category glass-card" data-contact="opensource" aria-labelledby="contact-opensource-title">
+          <h3 id="contact-opensource-title"><span class="category-icon" aria-hidden="true">🔨</span><button type="button"
+              class="contact-card-open" aria-haspopup="dialog" aria-label="查看开源项目详情">开源项目</button></h3>
+          <div class="contact-summary">
+            <p>开源项目1——浩正暖通</p>
+            <p>开源项目2——FC26补丁-23级建环纪念</p>
+          </div>
+          <div class="skill-tags contact-tags" role="group" aria-label="项目工具">
+            <button type="button" class="skill-tag" aria-haspopup="dialog">Excel</button>
+            <button type="button" class="skill-tag" aria-haspopup="dialog">MATLAB</button>
+            <button type="button" class="skill-tag" aria-haspopup="dialog">REFPROP</button>
+            <button type="button" class="skill-tag" aria-haspopup="dialog">Python</button>
+            <button type="button" class="skill-tag" aria-haspopup="dialog">Godot</button>
+            <button type="button" class="skill-tag" aria-haspopup="dialog">Live Editor</button>
+            <button type="button" class="skill-tag" aria-haspopup="dialog">FIFA Manager Editor</button>
+          </div>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <!-- Shared Projects / Contact Details Modal -->
+  <div id="project-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true"
+    aria-labelledby="modal-title" aria-describedby="modal-description">
+    <div class="modal-content glass-card">
+      <button id="modal-close" class="modal-close" aria-label="Close modal">&times;</button>
+      <h2 id="modal-title"></h2>
+      <div id="modal-description"></div>
+      <div id="modal-stack" class="modal-stack"></div>
+      <div id="modal-project-links" class="modal-links">
+        <a id="modal-github" href="#" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg>
+          GitHub
+        </a>
+        <a id="modal-live" href="#" target="_blank" rel="noopener" class="btn btn-primary">
+          Live Demo →
+        </a>
+      </div>
+      <div id="modal-contact-links" class="modal-links" hidden>
+        <a id="modal-baidu" target="_blank" rel="noopener" class="btn btn-primary" role="link"
+          aria-disabled="true" tabindex="-1" title="链接暂未提供">
+          百度网盘链接
+        </a>
+        <a id="modal-qa" target="_blank" rel="noopener" class="btn btn-outline" role="link"
+          aria-disabled="true" tabindex="-1" title="链接暂未提供">
+          Q&amp;A
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Noscript fallback -->
+  <noscript>
+    <div
+      style="padding:2rem;text-align:center;font-family:sans-serif;color:#e0e0e0;background:#0a0a0f;min-height:100vh;">
+      <h1>Subrato Kundu — Developer Portfolio</h1>
+      <p>Full-Stack Developer & 3D Web Engineer</p>
+      <p>Please enable JavaScript to experience the interactive 3D portfolio.</p>
+    </div>
+  </noscript>
+
+  <!-- Scripts (ES Modules via CDN) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+      "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.4/index.js"
+    }
+  }
+  </script>
+  <script type="module" src="js/data.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script src="js/team.js" defer></script>
+</body>
+
+</html>
