@@ -1,0 +1,37 @@
+name: Publish to Tencent Cloud
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tencent-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main' && vars.TENCENT_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: tencent-cloud
+      url: http://81.70.80.234/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Check JavaScript
+        run: |
+          for file in js/*.js; do
+            node --input-type=module --check < "$file"
+          done
+      - name: Prepare website
+        run: python3 scripts/prepare-site.py
+      - name: Publish and check website
+        env:
+          TENCENT_SSH_KEY: ${{ secrets.TENCENT_SSH_KEY }}
+          TENCENT_KNOWN_HOSTS: ${{ secrets.TENCENT_KNOWN_HOSTS }}
+        run: bash scripts/publish-tencent.sh
