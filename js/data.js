@@ -107,7 +107,7 @@ export const projects = [
   },
   {
     title: 'Rural Housing Optimization Design Platform',
-    description: '通过河北省沧州市各农村住宅实测数据，得到不同权重下的农村住宅最优房型。',
+    description: '',
     stack: ['Python', 'C++', 'Java', 'Godot'],
     githubUrl: null,
     liveUrl: null,
